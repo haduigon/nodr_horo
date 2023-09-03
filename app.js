@@ -25,7 +25,7 @@ app.listen(port, express.urlencoded({ extended: true }), () => {
 // Listening on route '/chat' on 'port'
 app.post('/chat', async (request, response) => {
   const { prompt } = req.body;
-});
+
 // Check 'prompt' and create request
 try {
     if (prompt == null) {
@@ -35,6 +35,16 @@ try {
         model: 'text-davinci-003',
         prompt,
         max_tokens: 500,
-        temperature
-    })
-}
+        temperature: 0,
+    });
+    // Receiving the response and sending it back
+    const completion = response.data.choices[0].text;
+     response.status(200).json({
+        success: true,
+        message: completion,
+    });
+} catch (error) {
+    console.log(error.message);
+}});
+
+
