@@ -2,15 +2,17 @@ const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const cors = require('cors');
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai');
 const { Request, Response } = require('express');
 const { exec } = require('child_process');
 // Create configuration with .env file, containing openai_api_key
-const configuration = new Configuration({
+// const configuration = new Configuration({
+//     apiKey: process.env.OPENAIAPI_KEY,
+// });
+// OpenAiApi initialization
+const openapi = new OpenAI({
     apiKey: process.env.OPENAIAPI_KEY,
 });
-// OpenAiApi initialization
-const openapi = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
@@ -31,7 +33,7 @@ try {
     if (prompt == null) {
         throw new Error('somth have happened');
     }
-    const response = await OpenAIApi.createCompletion({
+    const response = await openapi.createCompletion({
         model: 'text-davinci-003',
         prompt,
         max_tokens: 500,
