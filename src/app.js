@@ -5,10 +5,7 @@ const cors = require('cors');
 const OpenAI = require('openai');
 const { Request, Response } = require('express');
 const { exec } = require('child_process');
-// Create configuration with .env file, containing openai_api_key
-// const configuration = new Configuration({
-//     apiKey: process.env.OPENAIAPI_KEY,
-// });
+
 // OpenAiApi initialization
 const openapi = new OpenAI({
     apiKey: process.env.OPENAIAPI_KEY,
